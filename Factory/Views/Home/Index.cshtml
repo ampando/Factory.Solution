@@ -1,0 +1,30 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Factory.Models;
+
+<div class = "splash">
+  <h1>Silly Stingz Factory</h1>
+  <div class = "row">
+    <div class="col col-sm-3">
+      <ul><h2>Engineers</h2>
+        @foreach (Engineer engineer in Viewbag.Engineers)
+        {
+          <li>@Html.ActionLink($"{engineer.Name}", "Details", "Engineers", new { id = engineer.EngineerId })</li>
+        }
+        </ul>
+        <button class= "btn btn-dark">@Html.ActionLink("Add Engineer", "Create", "Engineers")</button>
+      </div>
+
+      <div class = "col col-sm-3">
+      <ul><h2>Machines</h2>
+        @foreach (Machine machine in ViewBag.Machines)
+        {
+          <li>@Html.ActionLink($"{machine.Model}", "Details", "Machines", new { id = machine.MachineId })</li>
+        }
+      </ul>
+      <button class= "btn btn-dark">@Html.ActionLink("Add Machine", "Create", "Machines")</button>
+    </div>
+  </div>
+</div>
