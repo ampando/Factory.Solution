@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Factory.Models;
 
 namespace Factory
 {
   public class Startup
   {
-    public Startup(IHostingEnvironment env)
+    public Startup(IWebHostEnvironment env)
     {
       var builder = new ConfigurationBuilder()
           .SetBasePath(env.ContentRootPath)
@@ -23,28 +23,27 @@ namespace Factory
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
-
+      
       services.AddEntityFrameworkMySql()
         .AddDbContext<FactoryContext>(options => options
-        .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
+        .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
     }
 
     public void Configure(IApplicationBuilder app)
     {
-      app.UseStaticFiles();
-
       app.UseDeveloperExceptionPage();
+      app.UseRouting();
 
-      app.UseMvc(routes =>
+      app.UseEndpoints(routes =>
       {
-        routes.MapRoute(
-          name: "default",
-          template: "{controller=Home}/{action=Index}/{id?}");
+        routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
       });
 
+      app.UseStaticFiles();
+      
       app.Run(async (context) =>
       {
-        await context.Response.WriteAsync("Oops, something went wrong!");
+        await context.Response.WriteAsync("Oops, Something Went Wrong!");
       });
     }
   }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Factory.Models
@@ -7,12 +6,13 @@ namespace Factory.Models
   {
     public Engineer()
     {
-      this.Machines = new HashSet<EngineerMachine>(); 
+      this.JoinEntities = new HashSet<EngineerMachine>(); 
     }
+    
     public int EngineerId { get; set; }
     public string Name { get; set; }
     public string ExperienceLevel { get; set; }
-    public ICollection<EngineerMachine> Machines { get; set; }
+    public virtual ICollection<EngineerMachine> JoinEntities { get; }
     
   }
 }
