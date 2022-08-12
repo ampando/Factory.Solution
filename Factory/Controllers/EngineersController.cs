@@ -11,33 +11,61 @@ namespace Factory.Controllers
 {
   private readonly FactoryContext _db;
   public EngineersController(FactoryContext db) 
-{
-  _db = db;
-}
-public ActionResult Index()
-{
-  return View(_db.Engineers.ToList());
-}
-
-public ActionResult Create()
-{
-  return View();
-}
-
-[HttpPost]
-public ActionResult Create(Engineer engineer)
-{
-  _db.Engineers.Add(engineer);
-  _db.SaveChanges();
-  return RedirectToAction("Index");
-}
-public ActionResult Details(int id)
+  {
+    _db = db;
+    }
+    public ActionResult Index()
     {
-      var thisEngineer = _db.Engineers
-          .Include(engineer => engineer.JoinEntities)
-          .ThenInclude(join => join.Machine)
-          .FirstOrDefault(engineer => engineer.EngineerId == id);
+      return View(_db.Engineers.ToList());
+    }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Engineer engineer)
+    {
+      _db.Engineers.Add(engineer);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    public ActionResult Details(int id)
+      {
+        var thisEngineer = _db.Engineers
+            .Include(engineer => engineer.JoinEntities)
+            .ThenInclude(join => join.Machine)
+            .FirstOrDefault(engineer => engineer.EngineerId == id);
+        return View(thisEngineer);
+      }
+    public ActionResult Edit(int id)
+      {
+        var thisEngineer = _db.Engineer.FirstOrDefault(engineer => engineer.EngineerId == id);
+        return View(thisEngineer);
+      }
+
+    [HttpPost]
+    public ActionResult Edit(Engineer engineer)
+    {
+      _db.Entry(engineer).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Delete(int id)
+    {
+      var thisEngineer = _db.Engineer.FirstOrDefault(Engineer => Engineer.EngineerId == id);
       return View(thisEngineer);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int id)
+    {
+      var thisEngineer = _db.Engineer.FirstOrDefault(Engineer => Engineer.EngineerId == id);
+      _db.Engineer.Remove(thisEngineer);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
   }
 }
