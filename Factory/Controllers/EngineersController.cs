@@ -60,7 +60,7 @@ namespace Factory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index", "Home");
     }
-    public Action Result AddMachine(int id)
+    public ActionResult AddMachine(int id)
     {
       var thisEngineer= _db.Engineers.FirstOrDefault(engineer => engineer.EngineerId == id);
       ViewBag.MachineId = new SelectList(_db.Machines, "Machine Id", "Model");
