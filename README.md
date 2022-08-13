@@ -71,29 +71,6 @@ Another C# independent project! We've attached a database using MySql Workbench 
 
 11. Within the project, navigate to the HairSalon.Solution directory, and type `dotnet restore`, then `dotnet build`. Once the build is complete, type `dotnet run` into the terminal. Click on the provided local host link in the terminal to view the web application in your browser.
 
-## SQL Schema Query
-
-The SQL commands below can be used with a the SQL manager to create the database for this project:
-
-DROP DATABASE IF EXISTS `adrienne_matosich`;
-CREATE DATABASE `adrienne_matosich`;
-
-USE `adrienne_matosich`;
-
-CREATE TABLE `engineers` (
-  `EngineerId` int NOT NULL AUTO_INCREMENT,
-  `EngineerName` varchar(255) NOT NULL,
-  `ExpierenceLevel` varchar(255) DEFAULT NULL,
-  `MachineId` int DEFAULT '0',
-  PRIMARY KEY (`EngineerId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-CREATE TABLE `machines` (
-  `MachineId` int NOT NULL AUTO_INCREMENT,
-  `MachineModel` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`MachineId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 ## appsettings.json
 
 Update your username and password in the appsettings.json file. By default these are set to:
