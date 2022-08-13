@@ -15,3 +15,14 @@ body{
   text-align: center;
 }
 
+label {
+  clear: left;
+  text-align: right;
+  width: 400px;
+  padding-right: 10px;
+  
+}
+
+input {
+  margin-bottom: 20px;
+}

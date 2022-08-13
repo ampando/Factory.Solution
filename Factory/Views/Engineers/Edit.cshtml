@@ -14,7 +14,10 @@
 
   @Html.LabelFor(model => model.Name)
   @Html.EditorFor(model => model.Name)
-
+  @Html.Label("Experience Level");
+  @Html.TextBoxFor(model => model.ExperienceLevel, new { @type="number", min="1", max="10", required="required" });
+  
   <input type="submit" value="Save" />
+  <br>
 }
 <p>@Html.ActionLink("Back to Engineer List", "Index")</p>
